@@ -1,6 +1,6 @@
-import { applyQuizModifiers } from "../../lib/applyQuizModifiers.js";
-import { runSimulation } from "../../lib/runSimulation.js";
-import { TEAMS } from "../../lib/teams.js";
+import { applyQuizModifiers } from "../../../lib/applyQuizModifiers.js";
+import { runSimulation } from "../../../lib/runSimulation.js";
+import { TEAMS } from "../../../lib/teams.js";
 
 export async function POST(req) {
   try {
