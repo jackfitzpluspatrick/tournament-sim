@@ -1,11 +1,18 @@
-import { getQuizAnswers } from "@/app/api/quiz/route";
 import Bracket from "./Bracket";
 
 export default async function ResultsPage(props) {
   const params = await props.params;
 
-  const quizAnswers = getQuizAnswers(params.id) || {};
+  // 🔥 FIX: fetch quiz answers instead of importing API route
+  const quizRes = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz?id=${params.id}`,
+    { cache: "no-store" }
+  );
 
+  const quizData = await quizRes.json();
+  const quizAnswers = quizData.quizAnswers || {};
+
+  // Run simulation
   const simRes = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/simulate`,
     {
