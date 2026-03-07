@@ -1,10 +1,9 @@
-import { applyQuizModifiers } from "@/lib/applyQuizModifiers";
-import { runSimulation } from "@/lib/runSimulation";
-import { TEAMS } from "@/lib/teams";
+import { applyQuizModifiers } from "../../lib/applyQuizModifiers";
+import { runSimulation } from "../../lib/runSimulation";
+import { TEAMS } from "../../lib/teams";
 
 export async function POST(req) {
   try {
-    // Safely parse JSON body
     let body = {};
     try {
       body = await req.json();
@@ -14,13 +13,10 @@ export async function POST(req) {
 
     const quizAnswers = body.quizAnswers || {};
 
-    // Apply modifiers
     const modifiedTeams = applyQuizModifiers(TEAMS, quizAnswers);
 
-    // Run simulation
     const result = runSimulation(modifiedTeams);
 
-    // result MUST contain: teams, rounds, championId
     return Response.json({
       bracket: {
         teams: result.teams,
