@@ -1,6 +1,6 @@
-import { applyQuizModifiers } from "../../lib/applyQuizModifiers";
-import { runSimulation } from "../../lib/runSimulation";
-import { TEAMS } from "../../lib/teams";
+import { applyQuizModifiers } from "../../lib/applyQuizModifiers.js";
+import { runSimulation } from "../../lib/runSimulation.js";
+import { TEAMS } from "../../lib/teams.js";
 
 export async function POST(req) {
   try {
@@ -12,9 +12,7 @@ export async function POST(req) {
     }
 
     const quizAnswers = body.quizAnswers || {};
-
     const modifiedTeams = applyQuizModifiers(TEAMS, quizAnswers);
-
     const result = runSimulation(modifiedTeams);
 
     return Response.json({
