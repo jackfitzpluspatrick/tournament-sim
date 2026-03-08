@@ -2,9 +2,10 @@ import { Redis } from "@upstash/redis";
 import { v4 as uuid } from "uuid";
 
 const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  url: "https://open-macaw-46260.upstash.io",
+  token: "AbS0AAIncDIxZDU3NzEyZmQxMzA0ZGU2YWE3NGFhN2Y0OWEyYzEzOXAyNDYyNjA",
 });
+
 
 // Save quiz answers
 export async function POST(req) {
