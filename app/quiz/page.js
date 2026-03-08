@@ -19,34 +19,20 @@ export default function QuizPage() {
     }));
   };
 
-  const handleSubmit = async () => {
-    try {
-      const res = await fetch("/api/quiz", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(answers),
-      });
-  
-      if (!res.ok) {
-        const text = await res.text();
-        console.error("Server error:", text);
-        return;
-      }
-  
-      const { resultId } = await res.json();
-      router.push(`/results/${resultId}`);
-    } catch (err) {
-      console.error("Client error:", err);
-    }
+  const handleSubmit = () => {
+    // Save answers in localStorage
+    localStorage.setItem("quizAnswers", JSON.stringify(answers));
+
+    // Redirect to results page
+    router.push("/results");
   };
-  
 
   return (
     <div className="p-10 max-w-xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Basketball Personality Quiz</h1>
 
-      {/* Importance sliders */}
       <div className="space-y-6">
+        {/* Pace */}
         <div>
           <label className="block font-medium mb-1">
             How important is pace (fast vs slow)?
@@ -56,18 +42,17 @@ export default function QuizPage() {
             min="1"
             max="10"
             value={answers.importance_pace}
-            onChange={(e) => handleChange("importance_pace", Number(e.target.value))}
+            onChange={(e) =>
+              handleChange("importance_pace", Number(e.target.value))
+            }
             className="w-full"
           />
-          <div className="text-sm text-gray-600">
-            {answers.importance_pace} / 10
-          </div>
+          <div className="text-sm text-gray-600">{answers.importance_pace} / 10</div>
         </div>
 
+        {/* Defense */}
         <div>
-          <label className="block font-medium mb-1">
-            How important is defense?
-          </label>
+          <label className="block font-medium mb-1">How important is defense?</label>
           <input
             type="range"
             min="1"
@@ -78,11 +63,10 @@ export default function QuizPage() {
             }
             className="w-full"
           />
-          <div className="text-sm text-gray-600">
-            {answers.importance_defense} / 10
-          </div>
+          <div className="text-sm text-gray-600">{answers.importance_defense} / 10</div>
         </div>
 
+        {/* Experience */}
         <div>
           <label className="block font-medium mb-1">
             How important is experience / veteran teams?
@@ -97,12 +81,10 @@ export default function QuizPage() {
             }
             className="w-full"
           />
-          <div className="text-sm text-gray-600">
-            {answers.importance_experience} / 10
-          </div>
+          <div className="text-sm text-gray-600">{answers.importance_experience} / 10</div>
         </div>
 
-        {/* Taylor Swift pace personality question */}
+        {/* Taylor Swift Preference */}
         <div>
           <label className="block font-medium mb-2">
             Which Taylor Swift vibe feels most like you?
