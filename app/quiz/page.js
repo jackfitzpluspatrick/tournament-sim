@@ -20,15 +20,26 @@ export default function QuizPage() {
   };
 
   const handleSubmit = async () => {
-    const res = await fetch("/api/quiz", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(answers),
-    });
-
-    const { resultId } = await res.json();
-    router.push(`/results/${resultId}`);
+    try {
+      const res = await fetch("/api/quiz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(answers),
+      });
+  
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("Server error:", text);
+        return;
+      }
+  
+      const { resultId } = await res.json();
+      router.push(`/results/${resultId}`);
+    } catch (err) {
+      console.error("Client error:", err);
+    }
   };
+  
 
   return (
     <div className="p-10 max-w-xl mx-auto">
