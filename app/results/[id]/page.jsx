@@ -1,4 +1,5 @@
-console.log("BASE URL (server):", process.env.NEXT_PUBLIC_BASE_URL);
+console.log("RESULTS PAGE PARAM ID:", params.id);
+console.log("BASE URL:", process.env.NEXT_PUBLIC_BASE_URL);
 
 import Bracket from "./Bracket";
 
