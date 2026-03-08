@@ -3,16 +3,18 @@ import Bracket from "./Bracket";
 export default async function ResultsPage(props) {
   const params = await props.params;
 
-  // Fetch quiz answers (internal call)
-  const quizRes = await fetch(`/api/quiz?id=${params.id}`, {
+  const base = process.env.NEXT_PUBLIC_BASE_URL;
+
+  // Fetch quiz answers (absolute URL)
+  const quizRes = await fetch(`${base}/api/quiz?id=${params.id}`, {
     cache: "no-store",
   });
 
   const quizData = await quizRes.json();
   const quizAnswers = quizData.quizAnswers || {};
 
-  // Run simulation (internal call)
-  const simRes = await fetch(`/api/simulate`, {
+  // Run simulation (absolute URL)
+  const simRes = await fetch(`${base}/api/simulate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ quizAnswers }),
