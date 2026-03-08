@@ -1,13 +1,8 @@
-// ------------------------------
-// Bracket.jsx — NEW MIRRORED UI
-// ------------------------------
-
 export default function Bracket({ bracket }) {
     const { teams, rounds, championId } = bracket;
   
     const getTeam = (id) => teams.find((t) => t.teamId === id);
   
-    // Group rounds by region
     const east = rounds.filter((r) => r.name.startsWith("East"));
     const west = rounds.filter((r) => r.name.startsWith("West"));
     const south = rounds.filter((r) => r.name.startsWith("South"));
@@ -17,10 +12,10 @@ export default function Bracket({ bracket }) {
     const championship = rounds.find((r) => r.name === "Championship");
   
     const roundHeights = [
-      "flex-grow-[1]",  // R64
-      "flex-grow-[2]",  // R32
-      "flex-grow-[4]",  // S16
-      "flex-grow-[8]",  // E8
+      "flex-grow-[1]",
+      "flex-grow-[2]",
+      "flex-grow-[4]",
+      "flex-grow-[8]",
     ];
   
     const leftCols = [
@@ -31,10 +26,10 @@ export default function Bracket({ bracket }) {
     ];
   
     const rightCols = [
-      { south: south[3], midwest: midwest[3] },
-      { south: south[2], midwest: midwest[2] },
-      { south: south[1], midwest: midwest[1] },
       { south: south[0], midwest: midwest[0] },
+      { south: south[1], midwest: midwest[1] },
+      { south: south[2], midwest: midwest[2] },
+      { south: south[3], midwest: midwest[3] },
     ];
   
     return (
@@ -45,8 +40,6 @@ export default function Bracket({ bracket }) {
           </h1>
   
           <div className="flex gap-10 items-start">
-  
-            {/* LEFT SIDE */}
             <div className="flex gap-10">
               {leftCols.map((col, i) => (
                 <div
@@ -59,7 +52,6 @@ export default function Bracket({ bracket }) {
               ))}
             </div>
   
-            {/* CENTER */}
             <div className="flex flex-col justify-center items-center gap-16 flex-grow-[8] w-[260px]">
               <div>
                 <h2 className="text-xl font-bold text-center mb-2">Final Four</h2>
@@ -76,7 +68,6 @@ export default function Bracket({ bracket }) {
               </h2>
             </div>
   
-            {/* RIGHT SIDE */}
             <div className="flex gap-10">
               {rightCols.map((col, i) => (
                 <div
@@ -88,14 +79,11 @@ export default function Bracket({ bracket }) {
                 </div>
               ))}
             </div>
-  
           </div>
         </div>
       </div>
     );
   }
-  
-  /* ---------------- MATCHUP CARD ---------------- */
   
   function MatchupCard({ teamA, teamB, winnerId }) {
     const winnerStyle = "font-bold text-green-700";
@@ -112,8 +100,6 @@ export default function Bracket({ bracket }) {
       </div>
     );
   }
-  
-  /* ---------------- ROUND BLOCK ---------------- */
   
   function RoundBlock({ round, getTeam }) {
     if (!round) return null;

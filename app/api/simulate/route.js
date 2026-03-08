@@ -1,6 +1,6 @@
-import { applyQuizModifiers } from "../../../lib/applyQuizModifiers.js";
-import { runSimulation } from "../../../lib/runSimulation.js";
-import { TEAMS } from "../../../lib/teams.js";
+import { applyQuizModifiers } from "../../../lib/applyQuizModifiers";
+import { runSimulation } from "../../../lib/runSimulation";
+import { TEAMS } from "../../../lib/teams";
 
 export async function POST(req) {
   try {
@@ -24,7 +24,6 @@ export async function POST(req) {
       quizAnswers,
     });
   } catch (err) {
-    console.error("SIM ERROR:", err);
     return Response.json(
       { error: "Simulation failed", details: String(err) },
       { status: 500 }
