@@ -1,3 +1,5 @@
+console.log("BASE URL (server):", process.env.NEXT_PUBLIC_BASE_URL);
+
 import Bracket from "./Bracket";
 
 export default async function ResultsPage({ params }) {
