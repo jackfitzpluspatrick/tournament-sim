@@ -1,27 +1,21 @@
-import Link from "next/link";
+"use client";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default function HomePage() {
+  const router = useRouter();
+
   return (
-    <main style={{ padding: 40 }}>
-      <h1>Tournament Simulator</h1>
-      <p>Welcome! Start the quiz to generate your bracket.</p>
-
-      <Link href="/quiz">
-        <button
-          style={{
-            padding: "12px 20px",
-            marginTop: 20,
-            fontSize: 18,
-            cursor: "pointer",
-            borderRadius: 6,
-            background: "#0070f3",
-            color: "white",
-            border: "none"
-          }}
-        >
-          Begin Quiz
-        </button>
-      </Link>
-    </main>
+    <div className="flex flex-col items-center justify-center min-h-screen p-10 bg-gray-50">
+      <h1 className="text-4xl font-bold mb-6">Basketball Personality Quiz</h1>
+      <p className="text-lg mb-8 text-center max-w-xl">
+        Find out your basketball bracket personality based on your preferences.
+      </p>
+      <button
+        onClick={() => router.push("/quiz")}
+        className="px-8 py-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition"
+      >
+        Start Quiz
+      </button>
+    </div>
   );
 }
