@@ -1,10 +1,11 @@
 import Bracket from "./Bracket";
 
 export default async function ResultsPage({ params }) {
+  const id = params.id; // <-- THIS FIXES EVERYTHING
   const base = process.env.NEXT_PUBLIC_BASE_URL;
 
-  // Fetch quiz answers (absolute URL required on Vercel SSR)
-  const quizRes = await fetch(`${base}/api/quiz?id=${params.id}`, {
+  // Fetch quiz answers
+  const quizRes = await fetch(`${base}/api/quiz?id=${id}`, {
     cache: "no-store",
   });
 
@@ -15,7 +16,7 @@ export default async function ResultsPage({ params }) {
   const quizData = await quizRes.json();
   const quizAnswers = quizData.quizAnswers || {};
 
-  // Fetch simulation results
+  // Run simulation
   const simRes = await fetch(`${base}/api/simulate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
