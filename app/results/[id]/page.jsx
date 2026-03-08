@@ -1,25 +1,31 @@
 import Bracket from "./Bracket";
 
-export default async function ResultsPage(props) {
-  const params = await props.params;
-
+export default async function ResultsPage({ params }) {
   const base = process.env.NEXT_PUBLIC_BASE_URL;
 
-  // Fetch quiz answers (absolute URL)
+  // Fetch quiz answers (absolute URL required on Vercel SSR)
   const quizRes = await fetch(`${base}/api/quiz?id=${params.id}`, {
     cache: "no-store",
   });
 
+  if (!quizRes.ok) {
+    return <div>Failed to load quiz data.</div>;
+  }
+
   const quizData = await quizRes.json();
   const quizAnswers = quizData.quizAnswers || {};
 
-  // Run simulation (absolute URL)
+  // Fetch simulation results
   const simRes = await fetch(`${base}/api/simulate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ quizAnswers }),
     cache: "no-store",
   });
+
+  if (!simRes.ok) {
+    return <div>Failed to run simulation.</div>;
+  }
 
   const data = await simRes.json();
 
